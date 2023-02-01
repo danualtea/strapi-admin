@@ -346,7 +346,6 @@ const assignPermissions = async (roleId, permissions = []) => {
     .map(assignRole)
     // Transform each permission into a Permission instance
     .map(permissionDomain.create);
-    console.log("3.5",new Date())
   const existingPermissions = await getService('permission').find({
     role: roleId,
     _limit: -1,
@@ -425,9 +424,7 @@ const resetSuperAdminPermissions = async () => {
   permissions.push(...otherPermissions);
 
   const transformedPermissions = await hooks.willResetSuperAdminPermissions.call(permissions);
-  console.log('1',new Date())
   await assignPermissions(superAdminRole.id, transformedPermissions);
-  console.log('2',new Date())
 };
 
 /**
