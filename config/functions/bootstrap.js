@@ -48,8 +48,8 @@ module.exports = async () => {
   await userService.migrateUsers();
 
   await roleService.createRolesIfNoneExist();
-  console.log("ENV : ",process.env.ENABLE_RESET_PERMISSION)
-  if (process.env.ENABLE_RESET_PERMISSION) {
+  console.log("ENABLE RESET SUPER ADMIN PERMISSION : ",process.env.ENABLE_RESET_PERMISSION)
+  if (process.env.ENABLE_RESET_PERMISSION === true) {
     console.log('resetSuperAdminPermissions start : ',new Date())
     roleService.resetSuperAdminPermissions()
     .then(() => console.log('resetSuperAdminPermissions success : ', new Date()))
