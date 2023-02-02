@@ -48,14 +48,15 @@ module.exports = async () => {
   await userService.migrateUsers();
 
   await roleService.createRolesIfNoneExist();
-  setTimeout(() => {
+
+  if (process.env.ENABLE_RESET_PERMISSION) {
     console.log('resetSuperAdminPermissions start : ',new Date())
     roleService.resetSuperAdminPermissions()
     .then(() => console.log('resetSuperAdminPermissions success : ',error, new Date()))
     .catch((error) => {
       console.log('resetSuperAdminPermissions error : ',error, new Date())
     });
-  }, 10000);
+  } 
   await roleService.displayWarningIfNoSuperAdmin();
 
   await permissionService.ensureBoundPermissionsInDatabase();
